@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "DeploymentName": {
+            "value": "mlcluster"
+        },
+        "AdminUser": {
+            "value": "admin"
+        },
+        "AdminPassword": {
+            "value": "lingtao"
+        },
+        "Licensee": {
+            "value": "none"
+        },
+        "LicenseKey": {
+            "value": "none"
+        },
+        "NumberOfNodes": {
+            "value": 3
+        },
+        "VnetName": {
+            "value": "ml-centos-cluster-vnet"
+        },
+        "VnetPrefix": {
+            "value": "10.2.0.0/16"
+        },
+        "SubnetName": {
+            "value": "vnet-vm-subnet"
+        },
+        "VmSubnetPrefix": {
+            "value": "10.2.0.0/24"
+        },
+        "AppGatewaySubnetPrefix": {
+            "value": "10.2.1.0/24"
+        },
+        "OSStorage": {
+            "value": "premium"
+        },
+        "DataStorage": {
+            "value": "premium"
+        },
+        "VirtualMachineUser": {
+            "value": "lingtao"
+        },
+        "SSHPublicKey": {
+            "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAYmKmWpwNTkOzOLOsW8y/mE9zEHSFUdP5DHQ3IZ654O21WOm9DYzQ9XuSyvNnvuiXur2RQSYSmS7izGL/NDuznU6KTTXPqL+VP7RpCgtHY/zKVzMFtO5NcD7+cKaPYTnbyvVigkKqiZVvIOPoU1j2Fu+jSa0dta+EeMaDlPMNUhJfwwJ7LLLSWwvMDtJM4uZN/7yh9njm7yq9kMkGPvb1swyYP1qPkdJD/YOTmlXRRGvtqAz9WhggRJwCjemQ8l3/IFb4O+QZscb/wzJDUiySdJZYIy4Z8XQjCLzUV2OILm+Ze7cC6OpeVn010w4g81wLIPYBBlGJ+S1U8kBSGqVB3yFLI4KPR3/WCFuw5C6rB6YpFO4y+Ea0Xx3e36mCykvP6oLhQVlhWCsPsbSJHZ/YyKwjokoZ0xrxJXXkt4R8Gs3m2cSL930pM4oPK5UIZEMM9zI5N9HcHg+/TgntJ23GKvc5uIL4ay52uq6OqzonWrsq7+u/u8bvovNV35CRACU= generated-by-azure"
+        },
+        "InstanceType": {
+            "value": "Standard_DS3_v2"
+        },
+        "HighAvailability": {
+            "value": "enable"
+        },
+        "_artifactsLocation": {
+            "value": "https://catalogartifact.azureedge.net/publicartifacts/marklogic.marklogic-enterprise-11-4a4b2b4b-dc09-4011-b0d0-7b7aaa1f5c67-marklogic_1110_cluster_deployment/Artifacts/mainTemplate.json"
+        },
+        "Location": {
+            "value": "australiaeast"
+        },
+
+        "Environment": {
+            "value": "prod"
+        }
+    }
+}
