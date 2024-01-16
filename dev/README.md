@@ -18,11 +18,12 @@ _Remote Desktop Connection Detail_
 
 > [virual machine size](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes)
 
-General Purpose **[ddv5-ddsv5-serise](https://learn.microsoft.com/en-us/azure/virtual-machines/ddv5-ddsv5-series)**
+General Purpose **[dv2-dsv2-series-memory](https://learn.microsoft.com/en-us/azure/virtual-machines/dv2-dsv2-series-memory)**
 
-- Standard_D2ds_v5
-- Standard_D4ds_v5
-- Standard_D8ds_v5
+- Standard_DS11_v2
+- Standard_DS12_v2
+- Standard_DS13_v2
+- Standard_DS14_v2
 
 ### 2 storage_account_type
 
@@ -34,5 +35,6 @@ General Purpose **[ddv5-ddsv5-serise](https://learn.microsoft.com/en-us/azure/vi
 
 ### 3 disk_size_gb
 
+- 2048
 - 1024
-- 128
+- 512

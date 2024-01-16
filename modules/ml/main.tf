@@ -192,7 +192,7 @@ resource "azurerm_resource_group_template_deployment" "ml" {
       value = "ml-azure-centos-rg"
     }
     osDiskType = {
-      value = "Premium_LRS"
+      value = var.storage_account_type
     }
     osDiskSizeGiB = {
       value = var.disk_size_gb
@@ -233,7 +233,7 @@ resource "azurerm_resource_group_template_deployment" "ml" {
     }
 
     virtualMachineSize = {
-      value = "Standard_DS13_v2"
+      value = var.vm_size
     }
     nicDeleteOption = {
       value = "Detach"

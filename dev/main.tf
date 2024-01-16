@@ -3,6 +3,8 @@ module "dev" {
 
  # ML
   environment           = var.environment
+  vm_size               = var.vm_size
+  storage_account_type  = var.storage_account_type
   disk_size_gb          = var.disk_size_gb
 
   # Azure App Registration 
@@ -25,6 +27,17 @@ variable "environment" {
     name           = "dev"
     network_prefix = "10.0"
   }
+}
+
+variable "vm_size" {
+  description = "linux vm size"
+  type    = string
+  default = "Standard_DS13_v2"
+}
+
+variable "storage_account_type" {
+  type    = string
+  default = "StandardSSD_LRS"
 }
 
 variable "disk_size_gb" {

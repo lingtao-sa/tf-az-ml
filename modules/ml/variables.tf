@@ -22,11 +22,6 @@ variable "storage_account_type" {
   default = "StandardSSD_LRS"
 }
 
-variable "storage_account_type" {
-  type    = string
-  default = "StandardSSD_LRS"
-}
-
 variable "disk_size_gb" {
   description = "disk size"
   type        = number
