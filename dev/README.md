@@ -1,14 +1,13 @@
-# Devlopment CloudPC - tf-az-w365cloudpc
-
-Main Cloud PC for development from **Anywhere**
+# Devlopment Single Node ML Centos - tf-az-ml
 
 _Remote Desktop Connection Detail_
 
 |Configuration|Value|
 |---|---|
-|HostName|cloudpc.australiaeast.cloudapp.azure.com|
-|login|lingtao|
-|password|1q2w3e4r5t^Y|
+|HostName|ml-azure-centos-node1.australiaeast.cloudapp.azure.com|
+|Putty (SSH)|MLAzure CentOS|
+|login|su|
+|password|Mikyl@2012|
 
 ## Varaibles
 
@@ -29,12 +28,13 @@ General Purpose **[dv2-dsv2-series-memory](https://learn.microsoft.com/en-us/azu
 
 > [sku type](https://learn.microsoft.com/en-us/rest/api/storagerp/srp_sku_types)
 
-- Standard_LRS
 - StandardSSD_LRS
 - Premium_LRS
 
 ### 3 disk_size_gb
 
-- 2048
-- 1024
 - 512
+- 1024
+- 2048
+
+> Core XML is only about 38G in size.

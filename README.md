@@ -3,37 +3,26 @@
 This is the terraform project to kickstart an Azure MarkLogic ondemand.
 The goal is to automate everything to provision a MarkLogic server with the offical MarkLogic published images
 
-Key Benefits
-
-- Customizable hardware spec.
-- VPN access is always from Australia Eastcoast even if the remote desktop access is from NZ or China.
-- Quiet and free from physical office laptop.
-- Freedom to install 3rd parties software.
-
 ## Overview
 
 ### Objectives
 
-1. Cloud based rapid Win desktop infra
-    - Start up - terraform apply
-    - Shut down - backup vm image to snapshop and terrform destroy
-2. Support multiple workspaces (different prebuild desktop for different purpose)
-3. Support further customization of the ML vm configuration parameter with TF variables
-4. Support auto osDisk snapshot before terraform destroy
-5. Automate everthing
+1. Customizable hardware spec.
+2. Upgradable with the official MarkLogic Azure ARM templates
 
 ### Dependency
 
 It is based on the Azure ARM template mantained in [ml-azure-iac](https://github.com/xcelerent/ml-azure-iac)
 
 > **Important Notes**
+>
 > - Remove all *comments* from the ARM template. (Terraform won't parse the comments elements in json file)
 > - Need to convert the ARM parameter json file into Terraform json format. It won't be able to load.
 
 ### Limitation
 
 1. It is to deploy to **Australia East** only
-2. it is for perosnal use only.
+2. it is pending to build the network module to join SA domain.
 
 ## Configration Varaibles
 
@@ -45,7 +34,6 @@ Project variables are organized based on how liklyhood to make the change.
 |--|--|--|--|--|
 |1|vm_size|Matchine Spec|Workspace GUI|CPU and RAM|
 |2|storage_account_type|Disk Type|Workspace GUI|How fast the disk is|
-|||||Standard_LRS - *Standard_HDD*|
 |||||StandardSSD_LRS - *Standard SSD*|
 |||||Premium_LRS *- Premium SSD*|
 |3|disk_size_gb|Disk Size|Workspace GUI|Disk size|
@@ -57,72 +45,39 @@ Project variables are organized based on how liklyhood to make the change.
 ||Variable Name|Description|Config Scope|Notes|
 |--|--|--|--|--|
 |1|domain_name|Public DNS name|Workspace Code|xxx.australiaeast.cloudapp.azure.com|
-|||||(a) cloudpc|
-|||||(b) sa-sim-migration|
+|||||(a) ml-azure-centos-node1|
 |2|environment.name|Prefix|Workspace Code|Short descrioption of the environment|
 |||||(a) dev|
-|||||(b) sa-sim-migration|
-|3|environment.network_prefix|Unique network address prefix|Workspace Code|(a) 10.0|
-|||||(b) 10.1|
-|4|cloudpc-vm-snapshot-name|back up vm snapshot|Workspace Code|cloudpc-win11-dev-vm-snapshot-latest|
-|||||(It is related with the powershell script to take vm snapshot)|
-
-### Seldom Change
-
-||Variable Name|Description|Config Scope|Notes|
-|--|--|--|--|--|
-|1|admin_username|Win admin login name|Modules Code|lingtao|
-|2|admin_password|admin password|Modules Code|1q2w3e4r5t^Y|
-|3|source_image_reference.sku|Official microsoft win base OS image|Modules Code|It is used when to create a brand new VM|
+|3|environment.network_prefix|Unique network address prefix|Workspace Code|(a) 10.1|
 
 ## Operational Manual
 
-### How to update restore osDisk image
+### How to restore sim-content db from thebackup
 
-1. Login to az portal *cloudpc-vm-snapshot-backup-rg*
+1. putty telnet to ml-azure-centos-node1 and azcopy backup from blob to */home/lingtao/ml-backup*
 
-    ![](https://i.imgur.com/rVTTFq4.png)
+    ```bash
+    pwd
 
-2. Copy uri from the browser
+    mkdir ml-backup
 
-    ![](https://i.imgur.com/azqcYCm.png)
-
-3. Extract snapshot setting
-
-    ```txt
-    <!-- Original -->
-    https://portal.azure.com/#@standards.org.au/resource/subscriptions/e249c303-8e43-46b5-80f9-169f76396c9e/resourceGroups/cloudpc-vm-snapshot-backup-rg/providers/Microsoft.Compute/snapshots/cloudpc-win11-dev-vm-snapshot-latest/overview
-
-    <!-- Sample -->
-    /subscriptions/*************/resourceGroups/My-prod-rg/providers/Microsoft.Compute/snapshots/test-01-c-drive
-
-    <!-- Final -->
-    /subscriptions/e249c303-8e43-46b5-80f9-169f76396c9e/resourceGroups/cloudpc-vm-snapshot-backup-rg/providers/Microsoft.Compute/snapshots/cloudpc-win11-dev-vm-snapshot-latest
+    azcopy copy "https://lingtao.blob.core.windows.net/ml-backup-container/docker-ml/ml-backup/20240202-1855040962340/?sv=2023-01-03&st=2024-01-28T19%3A35%3A22Z&se=2024-12-31T07%3A35%3A00Z&sr=c&sp=racwdxlf&sig=RfLfCzLbF%2BoWCIn6w%2FtpIv%2BOldDz8q46p8j%2FG6EB2Co%3D" "/home/lingtao/ml-backup" --recursive
     ```
 
-### How to enlarge osDisk size
+    ![putty tellnet](https://i.imgur.com/LfYSMwQ.png)
 
-The allocated disk size must be bigger than the image size.
-That could be done with terrafrom *disk_size_gb* variable.
-However the addtional disk size is not available until using the disk management util to extend the volumn. 
+    ![azcopy download backup](https://i.imgur.com/x75W0fZ.png)
 
-![](https://i.imgur.com/mQHbG34.png)
+2. Deploy from *ml-sim-lab* project to az-ml
 
-## Appendix
+    ![](https://i.imgur.com/JBenDsd.png)
 
-### VM Catalog
+3. Restore DB from */home/lingtao/ml-backup/* folder
 
-|Index|Host Name|Purpose|Creation Date|Workspace|IP prefix|Disk Size|os Disk Snapshot Name|
-|--|--|--|--|--|--|--|--|
-|1|dev-cloudpc|main development workstation|2024-01-08|dev|10.0|128|cloudpc-win11-dev-vm-snapshot-latest|
-|2|sa-sim-migration|SA MarkLogic win for full data migration|2024-01-08|sa-sim-migration|10.1|1024|cloudpc-win11-ml-vm-snapshot-latest|
+    ![DB Restore location](https://i.imgur.com/34ylyhh.png)
 
-### Base OS Image
-Defaul windows base image from MicrosoftWindowsDesktop (publisher)
+    ![DB Restore confirmation](https://i.imgur.com/S2XXzNb.png)
 
-[win11-23h2-pro](https://learn.microsoft.com/en-us/windows/whats-new/whats-new-windows-11-version-23h2)
+4. Verfiy DB Restore Status
 
-Note:
-
-- It should get updated once every year.
-- The default image size is 128 gb.
+    ![Verfify DB Docuemnt Size](https://i.imgur.com/TMBRh6W.png)
