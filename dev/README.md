@@ -13,7 +13,7 @@ _Remote Desktop Connection Detail_
 
 ### 1 vm_size
 
-![vm size summary](https://i.imgur.com/FaL4pxm.png)
+![vm size summary](https://i.imgur.com/EQK5AF4.png)
 
 > [virual machine size](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes)
 

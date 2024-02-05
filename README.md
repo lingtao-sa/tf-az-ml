@@ -24,6 +24,17 @@ It is based on the Azure ARM template mantained in [ml-azure-iac](https://github
 1. It is to deploy to **Australia East** only
 2. it is pending to build the network module to join SA domain.
 
+### 3rd Parties Tools Installed
+
+|Index|Variable Name|Description|Project|
+|--|--|--|--|
+|1|azcopy|It is required to download ml-backup from the blob storage|ml-script-store (lingtao-sa)|
+|2|Azure Cli|It is requried to take vm image backup in azure|ml-script-store (lingtao-sa)|
+|3|Datadog|ML monitoring|ml-script-store (lingtao-sa)|
+|4|Sumologic|logging for ML|ml-script-store (lingtao-sa)|
+
+
+
 ## Configration Varaibles
 
 Project variables are organized based on how liklyhood to make the change.
@@ -70,7 +81,7 @@ Project variables are organized based on how liklyhood to make the change.
 
 2. Deploy from *ml-sim-lab* project to az-ml
 
-    ![](https://i.imgur.com/JBenDsd.png)
+    ![vsc terminal](https://i.imgur.com/JBenDsd.png)
 
 3. Restore DB from */home/lingtao/ml-backup/* folder
 
