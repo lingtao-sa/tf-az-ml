@@ -33,8 +33,6 @@ It is based on the Azure ARM template mantained in [ml-azure-iac](https://github
 |3|Datadog|ML monitoring|ml-script-store (lingtao-sa)|
 |4|Sumologic|logging for ML|ml-script-store (lingtao-sa)|
 
-
-
 ## Configration Varaibles
 
 Project variables are organized based on how liklyhood to make the change.

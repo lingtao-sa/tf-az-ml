@@ -231,7 +231,7 @@
                     "imageReference": {
                         "publisher": "marklogic",
                         "offer": "marklogic-developer-11",
-                        "sku": "ml1110_centos",
+                        "sku": "ml1120_centos",
                         "version": "latest"
                     },
                     "copy": [
@@ -285,7 +285,7 @@
                 }
             },
             "plan": {
-                "name": "ml1110_centos",
+                "name": "ml1120_centos",
                 "publisher": "marklogic",
                 "product": "marklogic-developer-11"
             },
